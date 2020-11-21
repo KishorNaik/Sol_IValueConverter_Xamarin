@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Sol_Demo.ViewModels"
+             xmlns:converter="clr-namespace:Sol_Demo.Converters"
+             x:Class="Sol_Demo.Views.MainPage">
+
+    <ContentPage.BindingContext>
+        <vm:GameViewModel></vm:GameViewModel>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <converter:GameColorChangedConverter x:Key="platformConverter"></converter:GameColorChangedConverter>
+    </ContentPage.Resources>
+
+    <StackLayout>
+
+        <CollectionView ItemsSource="{Binding GameList, Mode=TwoWay}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Margin="10" Padding="5">
+                        <Frame CornerRadius="10" BackgroundColor="{Binding Platform, Converter={StaticResource platformConverter}}">
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding Name}"></Label>
+                                <Label Text="{Binding Platform}"></Label>
+                            </StackLayout>
+                        </Frame>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
+</ContentPage>
